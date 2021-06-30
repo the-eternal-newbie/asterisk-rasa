@@ -11,25 +11,26 @@ services:
       - 18000-18100:18000-18100/udp
       - 4445:4445
     volumes:
-      - ./certs:/certs
-      - ./data:/data
-      - ./logs:/var/log
-      - ./data/www:/var/www/html
+      - ./volumes/certs:/certs
+      - ./volumes/data:/data
+      - ./volumes/logs:/var/log
+      - ./volumes/data/www:/var/www/html
+      - ./dialplan/extensions_custom.conf:/etc/asterisk/extensions_custom.conf
     environment:
-      - VIRTUAL_HOST=hostname.example.com
-      - VIRTUAL_NETWORK=host
-      - VIRTUAL_PORT=80
-      - LETSENCRYPT_HOST=hostname.example.com
-      - LETSENCRYPT_EMAIL=email@example.com
-      - ZABBIX_HOSTNAME=freepbx-app
-      - RTP_START=18000
-      - RTP_FINISH=18100
-      - DB_EMBEDDED=FALSE
-      - DB_HOST=freepbx-db
-      - DB_PORT=3306
-      - DB_NAME=asterisk
-      - DB_USER=asterisk
-      - DB_PASS=asteriskpass
+      - VIRTUAL_HOST=${VIRTUAL_HOST}
+      - VIRTUAL_NETWORK=${VIRTUAL_NETWORK}
+      - VIRTUAL_PORT=${VIRTUAL_PORT}
+      - LETSENCRYPT_HOST=${LETSENCRYPT_HOST}
+      - LETSENCRYPT_EMAIL=${LETSENCRYPT_EMAIL}
+      - ZABBIX_HOSTNAME=${ZABBIX_HOSTNAME}
+      - RTP_START=${RTP_START}
+      - RTP_FINISH=${RTP_FINISH}
+      - DB_EMBEDDED=${DB_EMBEDDED}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASS=${DB_USER}
     restart: always
     networks:
       - proxy-tier
@@ -42,12 +43,12 @@ services:
     image: tiredofit/mariadb
     restart: always
     volumes:
-      - ./db:/var/lib/mysql
+      - ./volumes/db:/var/lib/mysql
     environment:
-      - MYSQL_ROOT_PASSWORD=password
-      - MYSQL_DATABASE=asterisk
-      - MYSQL_USER=asterisk
-      - MYSQL_PASSWORD=asteriskpass
+      - MYSQL_ROOT_PASSWORD=${DB_PASS}
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASS}
     networks:
       - proxy-tier
 
@@ -55,21 +56,21 @@ services:
     container_name: freepbx-db-backup
     image: tiredofit/db-backup
     links:
-     - freepbx-db
+      - freepbx-db
     volumes:
-      - ./dbbackup:/backup
+      - ./volumes/dbbackup:/backup
     environment:
-      - ZABBIX_HOSTNAME=freepbx-db-backup
-      - DB_HOST=freepbx-db
-      - DB_TYPE=mariadb
-      - DB_NAME=asterisk
-      - DB_USER=asterisk
-      - DB_PASS=asteriskpass
-      - DB_DUMP_FREQ=1440
-      - DB_DUMP_BEGIN=0000
-      - DB_CLEANUP_TIME=8640
-      - COMPRESSION=BZ
-      - MD5=TRUE
+      - ZABBIX_HOSTNAME=${ZABBIX_HOSTNAME}
+      - DB_HOST=${DB_HOST}
+      - DB_TYPE=${DB_TYPE}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASS=${DB_PASS}
+      - DB_DUMP_FREQ=${DB_DUMP_FREQ}
+      - DB_DUMP_BEGIN=${DB_DUMP_BEGIN}
+      - DB_CLEANUP_TIME=${DB_CLEANUP_TIME}
+      - COMPRESSION=${COMPRESSION}
+      - MD5=${MD5}
     networks:
       - proxy-tier
     restart: always
