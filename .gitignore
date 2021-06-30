@@ -133,3 +133,4 @@ dmypy.json
 volumes/*
 asterisk/keys
 asterisk/.asterisk-version
+bot/supervisord.pid

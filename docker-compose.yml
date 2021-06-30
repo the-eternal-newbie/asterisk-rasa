@@ -1,6 +1,16 @@
 version: '3'
 
 services:
+  bot-app:
+    build: bot-app
+    container_name: bot-app
+    environment:
+      - FLASK_ENV=${FLASK_ENV}
+    volumes:
+      - ./bot-app:/code
+    ports:
+      - 5000:5000
+
   freepbx-app:
     container_name: freepbx-app
     image: tiredofit/freepbx
