@@ -1,15 +1,16 @@
 version: '3'
 
 services:
-  bot-app:
-    build: bot-app
-    container_name: bot-app
+  rasa-bot:
+    build: rasa-bot
+    container_name: rasa-bot
     environment:
       - FLASK_ENV=${FLASK_ENV}
     volumes:
-      - ./bot-app:/code
+      - ./rasa-bot:/code
     ports:
       - 5000:5000
+      - 5005:5005
 
   freepbx-app:
     container_name: freepbx-app

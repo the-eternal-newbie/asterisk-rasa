@@ -76,22 +76,12 @@ docs/_build/
 # PyBuilder
 target/
 
-# Jupyter Notebook
-.ipynb_checkpoints
-
 # IPython
 profile_default/
 ipython_config.py
 
 # pyenv
 .python-version
-
-# pipenv
-#   According to pypa/pipenv#598, it is recommended to include Pipfile.lock in version control.
-#   However, in case of collaboration, if having platform-specific dependencies or dependencies
-#   having no cross-platform support, pipenv may install dependencies that don't work, or not
-#   install all needed dependencies.
-#Pipfile.lock
 
 # PEP 582; used by e.g. github.com/David-OConnor/pyflow
 __pypackages__/
@@ -112,16 +102,6 @@ ENV/
 env.bak/
 venv.bak/
 
-# Spyder project settings
-.spyderproject
-.spyproject
-
-# Rope project settings
-.ropeproject
-
-# mkdocs documentation
-/site
-
 # mypy
 .mypy_cache/
 .dmypy.json
@@ -130,7 +110,28 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+# Docker mounted data
 volumes/*
 asterisk/keys
 asterisk/.asterisk-version
 bot/supervisord.pid
+
+# Rasa files
+travis_gcloud_auth.json
+.DS_Store
+*.pyc
+models
+failed_stories.txt
+failed_stories.md
+story_confmat.pdf
+demo/index.html
+credentials.yml
+.idea
+test_train_split
+results
+.history
+rasa.*
+events.*
+terms
+docker-local
+.pytype/
