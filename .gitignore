@@ -131,3 +131,5 @@ dmypy.json
 .pyre/
 
 volumes/*
+asterisk/keys
+asterisk/.asterisk-version

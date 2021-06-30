@@ -11,11 +11,11 @@ services:
       - 18000-18100:18000-18100/udp
       - 4445:4445
     volumes:
+      - ./asterisk:/etc/asterisk
       - ./volumes/certs:/certs
       - ./volumes/data:/data
       - ./volumes/logs:/var/log
       - ./volumes/data/www:/var/www/html
-      - ./dialplans/extensions.conf:/etc/asterisk/extensions_custom.conf
     environment:
       - VIRTUAL_HOST=hostname.example.com
       - VIRTUAL_NETWORK=host
